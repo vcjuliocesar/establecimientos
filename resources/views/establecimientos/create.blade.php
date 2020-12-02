@@ -23,7 +23,28 @@
                                     {{$message}}
                                 </div>
                             @enderror
-
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría</label>
+                        <select
+                            name="categoria"
+                            id="categoria"
+                            class="form-control  @error('categoria') is-invalid @enderror"
+                            name="categoria_id"
+                        >
+                                <option value="" selected disabled> -- Seleccione --</option>
+                                @foreach ($categorias as $categoria)
+                                    <option
+                                        value="{{$categoria->id}}"
+                                        {{old('categoria_id') == $categoria->id ? 'selected' :''}}
+                                    >{{$categoria->nombre}}</option>
+                                @endforeach
+                        </select>
+                        @error('categoria')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                            @enderror
                     </div>
                 </fieldset>
             </form>
