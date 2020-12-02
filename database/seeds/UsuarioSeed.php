@@ -26,6 +26,8 @@ class UsuarioSeed extends Seeder
             'email'=>'correo2@correo.com',
             'password'=>Hash::make('12345678'),
             'email_verified_at'=>Carbon::now(),
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
         ]);
     }
 }
