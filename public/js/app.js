@@ -49878,8 +49878,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 document.addEventListener('DOMContentLoaded', function () {
-  var lat = 20.666332695977;
-  var lng = -103.392177745699;
+  var lat = 19.2653741;
+  var lng = -98.9576679;
   var mapa = L.map('mapa').setView([lat, lng], 16);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -2,9 +2,9 @@
 
 
 @section('styles')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-  crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+crossorigin=""/>
 
   <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
 
@@ -75,7 +75,7 @@
                         <input
                             id="imagen_principal"
                             type="file"
-                            class="form-control @error('imagen_principal') is-invalid @enderror "
+                            class="form-control @error('imagen_principal') is-invalid @enderror"
                             name="imagen_principal"
                             value="{{ old('imagen_principal') }}"
                         >
@@ -107,7 +107,39 @@
                         <div id="mapa" style="height: 400px;"></div>
                     </div>
 
-
+                    <p class="informacion">Confirma que los sigientes campos son correctos</p>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input
+                            type="text"
+                            id="direccion"
+                            class="form-control @error('direccion') is-invalid @enderror"
+                            placeholder="Dirección"
+                            value="{{old('direccion')}}"
+                        >
+                        @error('direccion')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Colonia</label>
+                        <input
+                            type="text"
+                            id="colonia"
+                            class="form-control @error('colonia') is-invalid @enderror"
+                            placeholder="Colonia"
+                            value="{{old('colonia')}}"
+                        >
+                        @error('colonia')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+                    <input type="hidden" id="lat" name="lat" value="{{old('lat')}}">
+                    <input type="hidden" id="lng" name="lng" value="{{old('lng')}}">
             </form>
         </div>
     </div>
@@ -117,7 +149,7 @@
 
 
 @section('scripts')
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-  crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
 @endsection

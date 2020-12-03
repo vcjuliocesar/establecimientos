@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const lat = 20.666332695977;
-    const lng = -103.392177745699;
+    const lat = 19.2653741;
+    const lng = -98.9576679;
 
     const mapa = L.map('mapa').setView([lat, lng], 16);
 
