@@ -49877,35 +49877,45 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-document.addEventListener('DOMContentLoaded', function () {
-  var lat = 19.2653741;
-  var lng = -98.9576679;
-  var mapa = L.map('mapa').setView([lat, lng], 16);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(mapa);
-  var marker; // agregar el pin
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.querySelector("#mapa")) {
+    var llenarInputs = function llenarInputs(resultado) {
+      document.querySelector('#direccion').value = resultado.address.Address || '';
+      document.querySelector('#colonia').value = resultado.address.Neighborhood || '';
+      document.querySelector('#lat').value = resultado.latlng.lat || '';
+      document.querySelector('#lng').value = resultado.latlng.lng || '';
+    };
 
-  marker = new L.marker([lat, lng], {
-    draggable: true,
-    autoPan: true
-  }).addTo(mapa); // Geocode Service
+    var lat = 19.2653741;
+    var lng = -98.9576679;
+    var mapa = L.map("mapa").setView([lat, lng], 16);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapa);
+    var marker; // agregar el pin
 
-  var geocodeService = L.esri.Geocoding.geocodeService(); //Detectar movimiento del marker
+    marker = new L.marker([lat, lng], {
+      draggable: true,
+      autoPan: true
+    }).addTo(mapa); // Geocode Service
 
-  marker.on('moveend', function (e) {
-    marker = e.target;
-    var posicion = marker.getLatLng(); //centrar automaticamente
+    var geocodeService = L.esri.Geocoding.geocodeService(); //Detectar movimiento del marker
 
-    mapa.panTo(new L.LatLng(posicion.lat, posicion.lng)); // Reverse GeoCoding, cuando el usuario reubica el pin
+    marker.on("moveend", function (e) {
+      marker = e.target;
+      var posicion = marker.getLatLng(); //centrar automaticamente
 
-    geocodeService.reverse().latlng(posicion, 16).run(function (error, resultado) {
-      //console.log(error);
-      console.log(resultado.address);
-      marker.bindPopup(resultado.address.LongLabel);
-      marker.openPopup();
+      mapa.panTo(new L.LatLng(posicion.lat, posicion.lng)); // Reverse GeoCoding, cuando el usuario reubica el pin
+
+      geocodeService.reverse().latlng(posicion, 16).run(function (error, resultado) {
+        //console.log(error);
+        //console.log(resultado.address);
+        marker.bindPopup(resultado.address.LongLabel);
+        marker.openPopup();
+        llenarInputs(resultado);
+      });
     });
-  });
+  }
 });
 
 /***/ }),
