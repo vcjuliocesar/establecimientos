@@ -63983,42 +63983,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet_geosearch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet-geosearch */ "./node_modules/leaflet-geosearch/dist/geosearch.module.js");
 
 var provider = new leaflet_geosearch__WEBPACK_IMPORTED_MODULE_0__["OpenStreetMapProvider"]();
-document.addEventListener("DOMContentLoaded", function () {
-  if (document.querySelector("#mapa")) {
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelector('#mapa')) {
+    var reubicarPin = function reubicarPin(marker) {
+      // Detectar movimiento del marker
+      marker.on('moveend', function (e) {
+        marker = e.target;
+        var posicion = marker.getLatLng(); // console.log(posicion);
+        // Centrar automaticamente
+
+        mapa.panTo(new L.LatLng(posicion.lat, posicion.lng)); // Reverse Geocoding, cuando el usuario reubica el pin
+
+        geocodeService.reverse().latlng(posicion, 16).run(function (error, resultado) {
+          // console.log(error);
+          // console.log(resultado.address);
+          marker.bindPopup(resultado.address.LongLabel);
+          marker.openPopup(); // Llenar los campos
+
+          llenarInputs(resultado);
+        });
+      });
+    };
+
     var buscarDireccion = function buscarDireccion(e) {
-      if (e.target.value.length > 10) {
+      if (e.target.value.length > 1) {
         provider.search({
-          query: e.target.value + ' Valle de Chalco Solidaridad MX '
+          query: e.target.value + ' Guadalajara MX '
         }).then(function (resultado) {
           if (resultado) {
-            // Reverse GeoCoding, cuando el usuario reubica el pin
-            //console.log(resultado);
+            // Limpiar los pines previos
+            markers.clearLayers(); // Reverse Geocoding, cuando el usuario reubica el pin
+
             geocodeService.reverse().latlng(resultado[0].bounds[0], 16).run(function (error, resultado) {
-              //console.log(error);
-              console.log(resultado); //marker.bindPopup(
-              //  resultado.address.LongLabel
-              //);
-              //marker.openPopup();
-              //llenarInputs(resultado);
+              // Llenar los inputs
+              llenarInputs(resultado); // Centrar el mapa
+
+              mapa.setView(resultado.latlng); // Agregar el Pin
+
+              marker = new L.marker(resultado.latlng, {
+                draggable: true,
+                autoPan: true
+              }).addTo(mapa); // asignar el contenedor de markers el nuevo pin
+
+              markers.addLayer(marker); // Mover el pin
+
+              reubicarPin(marker);
             });
           }
-        })["catch"](function (error) {
-          console.log(error);
+        })["catch"](function (error) {// console.log(error)
         });
       }
     };
 
     var llenarInputs = function llenarInputs(resultado) {
-      document.querySelector("#direccion").value = resultado.address.Address || "";
-      document.querySelector("#colonia").value = resultado.address.Neighborhood || "";
-      document.querySelector("#lat").value = resultado.latlng.lat || "";
-      document.querySelector("#lng").value = resultado.latlng.lng || "";
+      // console.log(resultado)
+      document.querySelector('#direccion').value = resultado.address.Address || '';
+      document.querySelector('#colonia').value = resultado.address.Neighborhood || '';
+      document.querySelector('#lat').value = resultado.latlng.lat || '';
+      document.querySelector('#lng').value = resultado.latlng.lng || '';
     };
 
-    var lat = 19.2653741;
-    var lng = -98.9576679;
-    var mapa = L.map("mapa").setView([lat, lng], 16);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    var lat = document.querySelector('#lat').value === '' ? 20.666332695977 : document.querySelector('#lat').value;
+    var lng = document.querySelector('#lng').value === '' ? -103.392177745699 : document.querySelector('#lng').value;
+    var mapa = L.map('mapa').setView([lat, lng], 16); // Eliminar pines previos
+
+    var markers = new L.FeatureGroup().addTo(mapa);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapa);
     var marker; // agregar el pin
@@ -64026,27 +64056,15 @@ document.addEventListener("DOMContentLoaded", function () {
     marker = new L.marker([lat, lng], {
       draggable: true,
       autoPan: true
-    }).addTo(mapa); // Geocode Service
+    }).addTo(mapa); // Agregar el pin a las capas
 
-    var geocodeService = L.esri.Geocoding.geocodeService(); //Buscador de direcciones
+    markers.addLayer(marker); // Geocode Service
 
-    var buscador = document.querySelector("#formbuscador");
-    buscador.addEventListener("blur", buscarDireccion); //Detectar movimiento del marker
+    var geocodeService = L.esri.Geocoding.geocodeService(); // Buscador de direcciones
 
-    marker.on("moveend", function (e) {
-      marker = e.target;
-      var posicion = marker.getLatLng(); //centrar automaticamente
-
-      mapa.panTo(new L.LatLng(posicion.lat, posicion.lng)); // Reverse GeoCoding, cuando el usuario reubica el pin
-
-      geocodeService.reverse().latlng(posicion, 16).run(function (error, resultado) {
-        //console.log(error);
-        //console.log(resultado.address);
-        marker.bindPopup(resultado.address.LongLabel);
-        marker.openPopup();
-        llenarInputs(resultado);
-      });
-    });
+    var buscador = document.querySelector('#formbuscador');
+    buscador.addEventListener('blur', buscarDireccion);
+    reubicarPin(marker);
   }
 });
 

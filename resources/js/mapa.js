@@ -1,17 +1,21 @@
-import { OpenStreetMapProvider } from "leaflet-geosearch";
-
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 const provider = new OpenStreetMapProvider();
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector("#mapa")) {
-        const lat = 19.2653741;
-        const lng = -98.9576679;
+document.addEventListener('DOMContentLoaded', () => {
 
-        const mapa = L.map("mapa").setView([lat, lng], 16);
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    if(document.querySelector('#mapa')) {
+
+        const lat = document.querySelector('#lat').value === '' ? 20.666332695977 : document.querySelector('#lat').value;
+        const lng = document.querySelector('#lng').value === '' ? -103.392177745699 : document.querySelector('#lng').value;
+
+        const mapa = L.map('mapa').setView([lat, lng], 16);
+
+        // Eliminar pines previos
+        let markers = new L.FeatureGroup().addTo(mapa);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mapa);
 
         let marker;
@@ -22,75 +26,99 @@ document.addEventListener("DOMContentLoaded", () => {
             autoPan: true
         }).addTo(mapa);
 
-        // Geocode Service
-        const geocodeService = L.esri.Geocoding.geocodeService();
+        // Agregar el pin a las capas
+        markers.addLayer(marker);
 
-        //Buscador de direcciones
-        const buscador = document.querySelector("#formbuscador");
-        buscador.addEventListener("blur", buscarDireccion);
 
-        //Detectar movimiento del marker
-        marker.on("moveend", function(e) {
-            marker = e.target;
-            const posicion = marker.getLatLng();
+       // Geocode Service
+       const geocodeService = L.esri.Geocoding.geocodeService();
 
-            //centrar automaticamente
-            mapa.panTo(new L.LatLng(posicion.lat, posicion.lng));
+       // Buscador de direcciones
+       const buscador = document.querySelector('#formbuscador');
+       buscador.addEventListener('blur', buscarDireccion);
 
-            // Reverse GeoCoding, cuando el usuario reubica el pin
-            geocodeService
-                .reverse()
-                .latlng(posicion, 16)
-                .run(function(error, resultado) {
-                    //console.log(error);
+        reubicarPin(marker);
 
-                    //console.log(resultado.address);
+        function reubicarPin(marker) {
+            // Detectar movimiento del marker
+            marker.on('moveend', function(e) {
+                marker = e.target;
+
+                const posicion = marker.getLatLng();
+
+                // console.log(posicion);
+
+                // Centrar automaticamente
+                mapa.panTo( new L.LatLng( posicion.lat, posicion.lng ) );
+
+                // Reverse Geocoding, cuando el usuario reubica el pin
+                geocodeService.reverse().latlng(posicion, 16).run(function(error, resultado) {
+                    // console.log(error);
+
+                    // console.log(resultado.address);
 
                     marker.bindPopup(resultado.address.LongLabel);
                     marker.openPopup();
 
+                    // Llenar los campos
                     llenarInputs(resultado);
-                });
-        });
+
+                })
+            });
+        }
 
         function buscarDireccion(e) {
-            if (e.target.value.length > 10) {
-                provider
-                    .search({ query: e.target.value + ' Valle de Chalco Solidaridad MX ' })
-                    .then(resultado => {
-                        if (resultado) {
-                            // Reverse GeoCoding, cuando el usuario reubica el pin
-                            //console.log(resultado);
-                            geocodeService
-                                .reverse()
-                                .latlng(resultado[0].bounds[0], 16)
-                                .run(function(error, resultado) {
-                                    //console.log(error);
 
-                                    console.log(resultado);
 
-                                    //marker.bindPopup(
-                                      //  resultado.address.LongLabel
-                                    //);
-                                    //marker.openPopup();
+            if(e.target.value.length > 1) {
+                provider.search({query: e.target.value + ' Guadalajara MX ' })
+                    .then( resultado => {
+                        if( resultado  ){
 
-                                    //llenarInputs(resultado);
-                                });
+                            // Limpiar los pines previos
+                            markers.clearLayers();
+
+                            // Reverse Geocoding, cuando el usuario reubica el pin
+                            geocodeService.reverse().latlng(resultado[0].bounds[0], 16).run(function(error, resultado) {
+
+                                // Llenar los inputs
+                                llenarInputs(resultado);
+
+                                // Centrar el mapa
+                                mapa.setView(resultado.latlng)
+
+
+                                // Agregar el Pin
+                                marker = new L.marker(resultado.latlng, {
+                                    draggable: true,
+                                    autoPan: true
+                                }).addTo(mapa);
+
+                                // asignar el contenedor de markers el nuevo pin
+                                markers.addLayer(marker);
+
+
+                                // Mover el pin
+                                 reubicarPin(marker);
+
+                            })
                         }
                     })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                    .catch( error => {
+                        // console.log(error)
+                    })
             }
         }
 
+
         function llenarInputs(resultado) {
-            document.querySelector("#direccion").value =
-                resultado.address.Address || "";
-            document.querySelector("#colonia").value =
-                resultado.address.Neighborhood || "";
-            document.querySelector("#lat").value = resultado.latlng.lat || "";
-            document.querySelector("#lng").value = resultado.latlng.lng || "";
+            // console.log(resultado)
+            document.querySelector('#direccion').value = resultado.address.Address || '';
+            document.querySelector('#colonia').value = resultado.address.Neighborhood || '';
+            document.querySelector('#lat').value = resultado.latlng.lat || '';
+            document.querySelector('#lng').value = resultado.latlng.lng || '';
         }
+
     }
+
 });
