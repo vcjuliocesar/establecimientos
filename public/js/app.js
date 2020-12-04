@@ -49889,13 +49889,22 @@ document.addEventListener('DOMContentLoaded', function () {
   marker = new L.marker([lat, lng], {
     draggable: true,
     autoPan: true
-  }).addTo(mapa); //Detectar movimiento del marker
+  }).addTo(mapa); // Geocode Service
+
+  var geocodeService = L.esri.Geocoding.geocodeService(); //Detectar movimiento del marker
 
   marker.on('moveend', function (e) {
     marker = e.target;
     var posicion = marker.getLatLng(); //centrar automaticamente
 
-    mapa.panTo(new L.LatLng(posicion.lat, posicion.lng));
+    mapa.panTo(new L.LatLng(posicion.lat, posicion.lng)); // Reverse GeoCoding, cuando el usuario reubica el pin
+
+    geocodeService.reverse().latlng(posicion, 16).run(function (error, resultado) {
+      //console.log(error);
+      console.log(resultado.address);
+      marker.bindPopup(resultado.address.LongLabel);
+      marker.openPopup();
+    });
   });
 });
 

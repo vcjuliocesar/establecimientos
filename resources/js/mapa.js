@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         autoPan:true
     }).addTo(mapa);
 
+    // Geocode Service
+    const geocodeService = L.esri.Geocoding.geocodeService();
+
     //Detectar movimiento del marker
     marker.on('moveend',function(e){
         marker = e.target;
@@ -24,6 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //centrar automaticamente
         mapa.panTo(new L.LatLng(posicion.lat,posicion.lng));
+
+        // Reverse GeoCoding, cuando el usuario reubica el pin
+        geocodeService.reverse().latlng(posicion,16).run(function(error,resultado){
+            //console.log(error);
+
+            console.log(resultado.address);
+
+            marker.bindPopup(resultado.address.LongLabel);
+            marker.openPopup();
+        });
+
     });
 
 });
