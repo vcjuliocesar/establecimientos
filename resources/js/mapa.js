@@ -1,3 +1,7 @@
+import { OpenStreetMapProvider } from "leaflet-geosearch";
+
+const provider = new OpenStreetMapProvider();
+
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("#mapa")) {
         const lat = 19.2653741;
@@ -20,6 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Geocode Service
         const geocodeService = L.esri.Geocoding.geocodeService();
+
+        //Buscador de direcciones
+        const buscador = document.querySelector("#formbuscador");
+        buscador.addEventListener("blur", buscarDireccion);
 
         //Detectar movimiento del marker
         marker.on("moveend", function(e) {
@@ -45,11 +53,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         });
 
+        function buscarDireccion(e) {
+            if (e.target.value.length > 10) {
+                provider
+                    .search({ query: e.target.value + ' Valle de Chalco Solidaridad MX ' })
+                    .then(resultado => {
+                        if (resultado) {
+                            // Reverse GeoCoding, cuando el usuario reubica el pin
+                            //console.log(resultado);
+                            geocodeService
+                                .reverse()
+                                .latlng(resultado[0].bounds[0], 16)
+                                .run(function(error, resultado) {
+                                    //console.log(error);
+
+                                    console.log(resultado);
+
+                                    //marker.bindPopup(
+                                      //  resultado.address.LongLabel
+                                    //);
+                                    //marker.openPopup();
+
+                                    //llenarInputs(resultado);
+                                });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        }
+
         function llenarInputs(resultado) {
-            document.querySelector('#direccion').value=resultado.address.Address || '';
-            document.querySelector('#colonia').value=resultado.address.Neighborhood || '';
-            document.querySelector('#lat').value=resultado.latlng.lat || '';
-            document.querySelector('#lng').value=resultado.latlng.lng || '';
+            document.querySelector("#direccion").value =
+                resultado.address.Address || "";
+            document.querySelector("#colonia").value =
+                resultado.address.Neighborhood || "";
+            document.querySelector("#lat").value = resultado.latlng.lat || "";
+            document.querySelector("#lng").value = resultado.latlng.lng || "";
         }
     }
 });
