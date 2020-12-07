@@ -63991,6 +63991,12 @@ document.addEventListener("DOMContentLoaded", function () {
       acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
       headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+      },
+      success: function success(file, respuesta) {
+        console.log(respuesta);
+      },
+      sending: function sending(file, xhr, formData) {
+        formData.append('uuid', document.querySelector('#uuid').value);
       }
     });
   }
