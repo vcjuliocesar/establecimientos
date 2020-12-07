@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             if(e.target.value.length > 1) {
-                provider.search({query: e.target.value + ' Guadalajara MX ' })
+                provider.search({query: e.target.value + ' Valle de Chalco Solidaridad, Estado de México' })
                     .then( resultado => {
                         if( resultado  ){
 
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     })
                     .catch( error => {
-                        // console.log(error)
+                         console.log(error)
                     })
             }
         }

@@ -64057,7 +64057,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var buscarDireccion = function buscarDireccion(e) {
       if (e.target.value.length > 1) {
         provider.search({
-          query: e.target.value + ' Guadalajara MX '
+          query: e.target.value + ' Valle de Chalco Solidaridad, Estado de México'
         }).then(function (resultado) {
           if (resultado) {
             // Limpiar los pines previos
@@ -64079,7 +64079,8 @@ document.addEventListener('DOMContentLoaded', function () {
               reubicarPin(marker);
             });
           }
-        })["catch"](function (error) {// console.log(error)
+        })["catch"](function (error) {
+          console.log(error);
         });
       }
     };
