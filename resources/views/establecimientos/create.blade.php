@@ -21,7 +21,7 @@ crossorigin=""/>
         <div class="mt-5 row justify-content-center">
             <form
                 class="col-md-9 col-xs-12 card card-body"
-                action=""
+                action="{{route('establecimiento.store')}}"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -115,6 +115,7 @@ crossorigin=""/>
                         <input
                             type="text"
                             id="direccion"
+                            name="direccion"
                             class="form-control @error('direccion') is-invalid @enderror"
                             placeholder="Dirección"
                             value="{{old('direccion')}}"
@@ -130,6 +131,7 @@ crossorigin=""/>
                         <input
                             type="text"
                             id="colonia"
+                            name="colonia"
                             class="form-control @error('colonia') is-invalid @enderror"
                             placeholder="Colonia"
                             value="{{old('colonia')}}"
