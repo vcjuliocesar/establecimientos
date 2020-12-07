@@ -1,3 +1,5 @@
+const { default: Axios } = require("axios");
+
 document.addEventListener("DOMContentLoaded", () => {
 
     if(document.querySelector('#dropzone')) {
@@ -15,14 +17,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 'X-CSRF-TOKEN' : document.querySelector('meta[name=csrf-token]').content
             },
             success:function(file,respuesta){
-                //console.log(respuesta);
+                console.log(respuesta);
                 file.nombreServidor = respuesta.archivo;
             },
             sending:function(file,xhr,formData){
                 formData.append('uuid',document.querySelector('#uuid').value);
             },
             removedfile:function(file,respuesta){
+                const params = {
+                    imagen:file.nombreServidor
+                };
+                axios.post('/imagenes/destroy',params)
+                     .then(respuesta => {
+                         console.log(respuesta);
 
+                         //Eliminar del DOM
+                        file.previewElement.parentNode.removeChild(file.previewElement);
+                     });
             }
         });
     }
