@@ -29,7 +29,7 @@ class EstableciomientoController extends Controller
      */
     public function store(Request $request)
     {
-        /*$data = $request->validate([
+        $data = $request->validate([
             'nombre'=>'required',
             'categoria_id'=>'required|exists:App\Categoria,id',
             'imagen_principal'=>'required|image|max:1000',
@@ -42,7 +42,7 @@ class EstableciomientoController extends Controller
             'apertura'=>'date_format:H:i',
             'cierre'=>'date_format:H:i|after:apertura',
             'uuid'=>'required|uuid'
-        ]);*/
+        ]);
 
         //Guardar la Imagen
         $ruta_imagen = $request['imagen_principal']->store('principales','public');
@@ -52,9 +52,27 @@ class EstableciomientoController extends Controller
         $img->save();
 
         //Guardar en la BD
+        //metodo 1 "para que funcione agregar el user_id al fillable"
+        /*$estableciomiento = new Estableciomiento($data);
+        $estableciomiento->imagen_principal=$ruta_imagen;
+        $estableciomiento->user_id = auth()->user()->id;*/
+        //metodo 2
+        auth()->user()->establecimiento()->create([
+            'nombre'=>$data['nombre'],
+            'categoria_id'=>$data['categoria_id'],
+            'imagen_principal'=>$ruta_imagen,
+            'direccion'=>$data['direccion'],
+            'colonia'=>$data['colonia'],
+            'lat'=>$data['lat'],
+            'lng'=>$data['lng'],
+            'telefono'=>$data['telefono'],
+            'descripcion'=>$data['descripcion'],
+            'apertura'=>$data['apertura'],
+            'cierre'=>$data['cierre'],
+            'uuid'=>$data['uuid']
+        ]);
 
-
-        return 'desde store';
+        return back()->with('estado','Tu información se almacenó correctamente');
     }
 
     /**

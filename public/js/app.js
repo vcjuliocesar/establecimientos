@@ -64092,8 +64092,8 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('#lng').value = resultado.latlng.lng || '';
     };
 
-    var lat = document.querySelector('#lat').value === '' ? 20.666332695977 : document.querySelector('#lat').value;
-    var lng = document.querySelector('#lng').value === '' ? -103.392177745699 : document.querySelector('#lng').value;
+    var lat = document.querySelector('#lat').value === '' ? 19.2653646 : document.querySelector('#lat').value;
+    var lng = document.querySelector('#lng').value === '' ? -98.957862 : document.querySelector('#lng').value;
     var mapa = L.map('mapa').setView([lat, lng], 16); // Eliminar pines previos
 
     var markers = new L.FeatureGroup().addTo(mapa);
