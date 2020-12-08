@@ -23,16 +23,16 @@
 </template>
 <script>
 export default {
-    data: function(){
-        return {
-            hoteles:[]
-        }
-    },
     mounted(){
         axios.get('/api/categorias/hotel')
             .then(respuesta => {
-                this.hoteles=respuesta.data;
+                this.$store.commit("AGREGAR_HOTELES",respuesta.data);
             })
+    },
+    computed:{
+        hoteles(){
+            return this.$store.state.hoteles;
+        }
     }
 }
 </script>

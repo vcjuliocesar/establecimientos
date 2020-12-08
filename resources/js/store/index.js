@@ -5,11 +5,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state:{
-        cafes:[]
+        cafes:[],
+        restaurantes:[],
+        hoteles:[]
     },
     mutations:{
         AGREGAR_CAFES(state,cafes){
             state.cafes = cafes;
+        },
+        AGREGAR_RESTAURANTS(state,restaurantes){
+            state.restaurantes = restaurantes;
+        },
+        AGREGAR_HOTELES(state,hoteles){
+            state.hoteles = hoteles;
         }
     }
 });

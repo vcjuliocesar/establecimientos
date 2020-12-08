@@ -1981,17 +1981,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      hoteles: []
-    };
-  },
   mounted: function mounted() {
     var _this = this;
 
     axios.get('/api/categorias/hotel').then(function (respuesta) {
-      _this.hoteles = respuesta.data;
+      _this.$store.commit("AGREGAR_HOTELES", respuesta.data);
     });
+  },
+  computed: {
+    hoteles: function hoteles() {
+      return this.$store.state.hoteles;
+    }
   }
 });
 
@@ -2030,17 +2030,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      restaurantes: []
-    };
-  },
   mounted: function mounted() {
     var _this = this;
 
     axios.get('/api/categorias/restaurant').then(function (respuesta) {
-      _this.restaurantes = respuesta.data;
+      _this.$store.commit("AGREGAR_RESTAURANTS", respuesta.data);
     });
+  },
+  computed: {
+    restaurantes: function restaurantes() {
+      return this.$store.state.restaurantes;
+    }
   }
 });
 
@@ -65986,11 +65986,19 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    cafes: []
+    cafes: [],
+    restaurantes: [],
+    hoteles: []
   },
   mutations: {
     AGREGAR_CAFES: function AGREGAR_CAFES(state, cafes) {
       state.cafes = cafes;
+    },
+    AGREGAR_RESTAURANTS: function AGREGAR_RESTAURANTS(state, restaurantes) {
+      state.restaurantes = restaurantes;
+    },
+    AGREGAR_HOTELES: function AGREGAR_HOTELES(state, hoteles) {
+      state.hoteles = hoteles;
     }
   }
 }));
