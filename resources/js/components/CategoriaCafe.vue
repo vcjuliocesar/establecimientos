@@ -23,17 +23,16 @@
 </template>
 <script>
 export default {
-    data: function(){
-        return {
-            cafes:[]
-        }
-    },
     mounted(){
         axios.get('/api/categorias/cafe')
             .then(respuesta => {
-                this.cafes=respuesta.data;
-                console.log(this.cafes);
+                this.$store.commit("AGREGAR_CAFES",respuesta.data);
             })
+    },
+    computed:{
+        cafes(){
+            return this.$store.state.cafes;
+        }
     }
 }
 </script>
