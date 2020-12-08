@@ -1,6 +1,6 @@
 <template>
     <div class="container my-5">
-        <h2>Cafés</h2>
+        <h2>Café</h2>
         <div class="row">
             <div class="col-md-4 mt-4" v-for="cafe in this.cafes" v-bind:key="cafe.id">
                 <div class="card">

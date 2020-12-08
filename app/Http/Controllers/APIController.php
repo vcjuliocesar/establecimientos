@@ -18,7 +18,7 @@ class APIController extends Controller
     //Muestra los establecimientos de la categoria
     public function categoria(Categoria $categoria)
     {
-        $establecimientos = Estableciomiento::where('categoria_id',$categoria->id)->with('categoria')->get();
+        $establecimientos = Estableciomiento::where('categoria_id',$categoria->id)->with('categoria')->take(3)->get();
         return response()->json($establecimientos);
     }
 }
