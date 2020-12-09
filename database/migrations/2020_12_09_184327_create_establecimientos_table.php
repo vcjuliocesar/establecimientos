@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstableciomientosTable extends Migration
+class CreateEstablecimientosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,7 +20,7 @@ class CreateEstableciomientosTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('estableciomientos', function (Blueprint $table) {
+        Schema::create('establecimientos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->foreignId('categoria_id')->constrained();

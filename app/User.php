@@ -40,6 +40,6 @@ class User extends Authenticatable implements MustVerifyEmail
     //relacion 1:1 usuario y establecimiento
     public function establecimiento()
     {
-        return $this->hasOne(Estableciomiento::class);
+        return $this->hasOne(Establecimiento::class);
     }
 }

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
-use App\Estableciomiento;
+use App\Establecimiento;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
-class EstableciomientoController extends Controller
+class EstablecimientoController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -53,9 +53,9 @@ class EstableciomientoController extends Controller
 
         //Guardar en la BD
         //metodo 1 "para que funcione agregar el user_id al fillable"
-        /*$estableciomiento = new Estableciomiento($data);
-        $estableciomiento->imagen_principal=$ruta_imagen;
-        $estableciomiento->user_id = auth()->user()->id;*/
+        /*$establecimiento = new Establecimiento($data);
+        $establecimiento->imagen_principal=$ruta_imagen;
+        $establecimiento->user_id = auth()->user()->id;*/
         //metodo 2
         auth()->user()->establecimiento()->create([
             'nombre'=>$data['nombre'],
@@ -78,10 +78,10 @@ class EstableciomientoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Estableciomiento  $estableciomiento
+     * @param  \App\Establecimiento  $establecimiento
      * @return \Illuminate\Http\Response
      */
-    public function show(Estableciomiento $estableciomiento)
+    public function show(Establecimiento $establecimiento)
     {
         //
     }
@@ -89,10 +89,10 @@ class EstableciomientoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Estableciomiento  $estableciomiento
+     * @param  \App\Establecimiento  $establecimiento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Estableciomiento $estableciomiento)
+    public function edit(Establecimiento $establecimiento)
     {
         return "desde edit";
     }
@@ -101,10 +101,10 @@ class EstableciomientoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Estableciomiento  $estableciomiento
+     * @param  \App\Establecimiento  $establecimiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estableciomiento $estableciomiento)
+    public function update(Request $request, Establecimiento $establecimiento)
     {
         //
     }
@@ -112,10 +112,10 @@ class EstableciomientoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Estableciomiento  $estableciomiento
+     * @param  \App\Establecimiento  $establecimiento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estableciomiento $estableciomiento)
+    public function destroy(Establecimiento $establecimiento)
     {
         //
     }
