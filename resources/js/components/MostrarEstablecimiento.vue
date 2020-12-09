@@ -1,5 +1,7 @@
 <template>
-    <h1>Establecimiento</h1>
+    <div class="container my-5">
+        <h2>{{establecimiento.nombre}}</h2>
+    </div>
 </template>
 
 <script>
@@ -10,10 +12,13 @@ export default {
         const {id} = this.$route.params;
         axios.get('/api/establecimientos/'+ id)
             .then(respuesta => {
-                console.log(respuesta.data);
-            })
+                this.$store.commit("AGREGAR_ESTABLECIMIENTO",respuesta.data);
+            });
     },
     computed:{
+        establecimiento(){
+            return this.$store.getters.obtenerEstablecimiento;
+        }
     }
 }
 </script>

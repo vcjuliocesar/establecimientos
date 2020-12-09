@@ -2098,15 +2098,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    var _this = this;
+
     console.log(this.$route.params);
     var id = this.$route.params.id;
     axios.get('/api/establecimientos/' + id).then(function (respuesta) {
-      console.log(respuesta.data);
+      _this.$store.commit("AGREGAR_ESTABLECIMIENTO", respuesta.data);
     });
   },
-  computed: {}
+  computed: {
+    establecimiento: function establecimiento() {
+      return this.$store.getters.obtenerEstablecimiento;
+    }
+  }
 });
 
 /***/ }),
@@ -52147,7 +52155,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Establecimiento")])
+  return _c("div", { staticClass: "container my-5" }, [
+    _c("h2", [_vm._v(_vm._s(_vm.establecimiento.nombre))])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -69393,7 +69403,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     cafes: [],
     restaurantes: [],
-    hoteles: []
+    hoteles: [],
+    establecimiento: {}
   },
   mutations: {
     AGREGAR_CAFES: function AGREGAR_CAFES(state, cafes) {
@@ -69404,6 +69415,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     AGREGAR_HOTELES: function AGREGAR_HOTELES(state, hoteles) {
       state.hoteles = hoteles;
+    },
+    AGREGAR_ESTABLECIMIENTO: function AGREGAR_ESTABLECIMIENTO(state, establecimiento) {
+      state.establecimiento = establecimiento;
+    }
+  },
+  getters: {
+    obtenerEstablecimiento: function obtenerEstablecimiento(state) {
+      return state.establecimiento;
     }
   }
 }));
