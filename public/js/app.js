@@ -2100,6 +2100,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var _this = this;
@@ -52156,7 +52193,84 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container my-5" }, [
-    _c("h2", [_vm._v(_vm._s(_vm.establecimiento.nombre))])
+    _c("h2", { staticClass: "text-center mb-5" }, [
+      _vm._v(_vm._s(_vm.establecimiento.nombre))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row align-items-start" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("img", {
+          attrs: {
+            src: "../storage/" + _vm.establecimiento.imagen_principal,
+            alt: "imagen establecimiento"
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-3" }, [
+          _vm._v(_vm._s(_vm.establecimiento.descripcion))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("aside", { staticClass: "col-md-4 bg-primary" }, [
+        _c("div"),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-4" }, [
+          _c("h2", { staticClass: "text-center text-white mt-2 mb-4" }, [
+            _vm._v("Más Información")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-white mt-1" }, [
+            _c("span", { staticClass: "text-white mt-1" }, [
+              _vm._v(
+                "\n                        Ubicación:\n                    "
+              )
+            ]),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.establecimiento.direccion) +
+                "\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-white mt-1" }, [
+            _c("span", { staticClass: "text-white mt-1" }, [
+              _vm._v("\n                        Colonia:\n                    ")
+            ]),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.establecimiento.colonia) +
+                "\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-white mt-1" }, [
+            _c("span", { staticClass: "text-white mt-1" }, [
+              _vm._v("\n                        Horario:\n                    ")
+            ]),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.establecimiento.apertura) +
+                " - " +
+                _vm._s(_vm.establecimiento.cierre) +
+                "\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-white mt-1" }, [
+            _c("span", { staticClass: "text-white mt-1" }, [
+              _vm._v(
+                "\n                        Telefono:\n                    "
+              )
+            ]),
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.establecimiento.telefono) +
+                "\n                "
+            )
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
