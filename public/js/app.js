@@ -2052,6 +2052,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GaleriaImagenes.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GaleriaImagenes.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    imagenes: function imagenes() {
+      return this.$store.getters.obtenerImagenes;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InicioEstablecimientos.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InicioEstablecimientos.vue?vue&type=script&lang=js& ***!
@@ -2162,6 +2191,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MapaUbicacion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapaUbicacion */ "./resources/js/components/MapaUbicacion.vue");
+/* harmony import */ var _GaleriaImagenes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GaleriaImagenes */ "./resources/js/components/GaleriaImagenes.vue");
+//
 //
 //
 //
@@ -2208,9 +2239,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    MapaUbicacion: _MapaUbicacion__WEBPACK_IMPORTED_MODULE_0__["default"]
+    MapaUbicacion: _MapaUbicacion__WEBPACK_IMPORTED_MODULE_0__["default"],
+    GaleriaImagenes: _GaleriaImagenes__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     var _this = this;
@@ -52862,6 +52895,46 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GaleriaImagenes.vue?vue&type=template&id=2fcfb43d&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GaleriaImagenes.vue?vue&type=template&id=2fcfb43d& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h2", { staticClass: "mt-4" }, [_vm._v("galería de Imagenes")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "row list-unstyled mt-4" },
+      _vm._l(_vm.imagenes, function(imagen) {
+        return _c("li", { key: imagen.id, staticClass: "col-md-4 mb-4" }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: "../storage/" + imagen.ruta_imagen, alt: "imagen" }
+          })
+        ])
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InicioEstablecimientos.vue?vue&type=template&id=2621089d&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InicioEstablecimientos.vue?vue&type=template&id=2621089d& ***!
@@ -52970,18 +53043,25 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row align-items-start" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("img", {
-          attrs: {
-            src: "../storage/" + _vm.establecimiento.imagen_principal,
-            alt: "imagen establecimiento"
-          }
-        }),
-        _vm._v(" "),
-        _c("p", { staticClass: "mt-3" }, [
-          _vm._v(_vm._s(_vm.establecimiento.descripcion))
-        ])
-      ]),
+      _c(
+        "div",
+        { staticClass: "col-md-8" },
+        [
+          _c("img", {
+            attrs: {
+              src: "../storage/" + _vm.establecimiento.imagen_principal,
+              alt: "imagen establecimiento"
+            }
+          }),
+          _vm._v(" "),
+          _c("p", { staticClass: "mt-3" }, [
+            _vm._v(_vm._s(_vm.establecimiento.descripcion))
+          ]),
+          _vm._v(" "),
+          _c("galeria-imagenes")
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("aside", { staticClass: "col-md-4" }, [
         _c("div", [_c("mapa-ubicacion")], 1),
@@ -82454,6 +82534,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/GaleriaImagenes.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/GaleriaImagenes.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _GaleriaImagenes_vue_vue_type_template_id_2fcfb43d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GaleriaImagenes.vue?vue&type=template&id=2fcfb43d& */ "./resources/js/components/GaleriaImagenes.vue?vue&type=template&id=2fcfb43d&");
+/* harmony import */ var _GaleriaImagenes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GaleriaImagenes.vue?vue&type=script&lang=js& */ "./resources/js/components/GaleriaImagenes.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _GaleriaImagenes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GaleriaImagenes_vue_vue_type_template_id_2fcfb43d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _GaleriaImagenes_vue_vue_type_template_id_2fcfb43d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/GaleriaImagenes.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/GaleriaImagenes.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/GaleriaImagenes.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GaleriaImagenes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./GaleriaImagenes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GaleriaImagenes.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GaleriaImagenes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/GaleriaImagenes.vue?vue&type=template&id=2fcfb43d&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/GaleriaImagenes.vue?vue&type=template&id=2fcfb43d& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GaleriaImagenes_vue_vue_type_template_id_2fcfb43d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./GaleriaImagenes.vue?vue&type=template&id=2fcfb43d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GaleriaImagenes.vue?vue&type=template&id=2fcfb43d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GaleriaImagenes_vue_vue_type_template_id_2fcfb43d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GaleriaImagenes_vue_vue_type_template_id_2fcfb43d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/InicioEstablecimientos.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/InicioEstablecimientos.vue ***!
@@ -82969,6 +83118,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   getters: {
     obtenerEstablecimiento: function obtenerEstablecimiento(state) {
       return state.establecimiento;
+    },
+    obtenerImagenes: function obtenerImagenes(state) {
+      return state.establecimiento.imagenes;
     }
   }
 }));

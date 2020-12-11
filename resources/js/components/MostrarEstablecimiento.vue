@@ -5,6 +5,7 @@
             <div class="col-md-8">
                 <img :src="`../storage/${establecimiento.imagen_principal}`" alt="imagen establecimiento">
                 <p class="mt-3">{{establecimiento.descripcion}}</p>
+                <galeria-imagenes></galeria-imagenes>
             </div>
             <aside class="col-md-4">
                 <div>
@@ -45,9 +46,12 @@
 
 <script>
 import MapaUbicacion from './MapaUbicacion';
+import GaleriaImagenes from './GaleriaImagenes';
+
 export default {
     components:{
-        MapaUbicacion
+        MapaUbicacion,
+        GaleriaImagenes
     },
     mounted(){
         console.log(this.$route.params);
