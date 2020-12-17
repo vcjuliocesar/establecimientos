@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class APIController extends Controller
 {
+    //metodo para obtener todos los establecimientos
+    public function index()
+    {
+        $establecimientos = Establecimiento::all();
+
+        return response()->json($establecimientos);
+    }
+
     //metodo para obtener todas las categorias
     public function categorias()
     {
