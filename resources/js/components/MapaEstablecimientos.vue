@@ -2,8 +2,14 @@
     <div class="mapa">
         <l-map :zoom="zoom" :center="center" :options="mapOptions">
             <l-tile-layer :url="url" :attribution="attribution" />
-            <l-marker>
-                <l-tooltip></l-tooltip>
+            <l-marker
+                v-for="establecimiento in establecimientos"
+                v-bind:key="establecimiento.id"
+                :lat-lng="obtenerCoordenadas(establecimiento)"
+            >
+                <l-tooltip>
+                    <div>{{establecimiento.nombre}}</div>
+                </l-tooltip>
             </l-marker>
         </l-map>
     </div>
@@ -22,18 +28,38 @@ export default {
     data() {
         return {
             zoom: 13,
-            center: latLng(20.666332695977, -103.392177745699),
+            center: latLng(19.2653646, -98.957862),
             url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             attribution:
                 '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             currentZoom: 11.5,
-            currentCenter: latLng(20.666332695977, -103.392177745699),
+            currentCenter: latLng(19.2653646, -98.957862),
             showParagraph: false,
             mapOptions: {
                 zoomSnap: 0.5
             },
             showMap: true
         };
+    },
+    created(){
+        axios.get('/api/establecimientos')
+             .then(respuesta=>{
+                 console.log(respuesta.data);
+                 this.$store.commit('AGREGAR_ESTABLECIMIENTOS',respuesta.data);
+             });
+    },
+    computed:{
+        establecimientos(){
+            return this.$store.getters.obtenerEstablecimientos
+        }
+    },
+    methods:{
+        obtenerCoordenadas(establecimiento){
+            return {
+                lat:establecimiento.lat,
+                lng:establecimiento.lng
+            }
+        }
     }
 };
 </script>

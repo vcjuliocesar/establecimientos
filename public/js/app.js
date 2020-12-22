@@ -2146,6 +2146,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2159,17 +2165,39 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       zoom: 13,
-      center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(20.666332695977, -103.392177745699),
+      center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(19.2653646, -98.957862),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       currentZoom: 11.5,
-      currentCenter: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(20.666332695977, -103.392177745699),
+      currentCenter: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(19.2653646, -98.957862),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5
       },
       showMap: true
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/establecimientos').then(function (respuesta) {
+      console.log(respuesta.data);
+
+      _this.$store.commit('AGREGAR_ESTABLECIMIENTOS', respuesta.data);
+    });
+  },
+  computed: {
+    establecimientos: function establecimientos() {
+      return this.$store.getters.obtenerEstablecimientos;
+    }
+  },
+  methods: {
+    obtenerCoordenadas: function obtenerCoordenadas(establecimiento) {
+      return {
+        lat: establecimiento.lat,
+        lng: establecimiento.lng
+      };
+    }
   }
 });
 
@@ -2212,7 +2240,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       zoom: 16,
-      center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(20.666332695977, -103.392177745699),
+      center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(19.2653646, -98.957862),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       currentZoom: 11.5,
@@ -53734,9 +53762,23 @@ var render = function() {
             attrs: { url: _vm.url, attribution: _vm.attribution }
           }),
           _vm._v(" "),
-          _c("l-marker", [_c("l-tooltip")], 1)
+          _vm._l(_vm.establecimientos, function(establecimiento) {
+            return _c(
+              "l-marker",
+              {
+                key: establecimiento.id,
+                attrs: { "lat-lng": _vm.obtenerCoordenadas(establecimiento) }
+              },
+              [
+                _c("l-tooltip", [
+                  _c("div", [_vm._v(_vm._s(establecimiento.nombre))])
+                ])
+              ],
+              1
+            )
+          })
         ],
-        1
+        2
       )
     ],
     1
@@ -83984,7 +84026,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     cafes: [],
     restaurantes: [],
     hoteles: [],
-    establecimiento: {}
+    establecimiento: {},
+    establecimientos: []
   },
   mutations: {
     AGREGAR_CAFES: function AGREGAR_CAFES(state, cafes) {
@@ -83998,6 +84041,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     AGREGAR_ESTABLECIMIENTO: function AGREGAR_ESTABLECIMIENTO(state, establecimiento) {
       state.establecimiento = establecimiento;
+    },
+    AGREGAR_ESTABLECIMIENTOS: function AGREGAR_ESTABLECIMIENTOS(state, establecimientos) {
+      state.establecimientos = establecimientos;
     }
   },
   getters: {
@@ -84006,6 +84052,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     obtenerImagenes: function obtenerImagenes(state) {
       return state.establecimiento.imagenes;
+    },
+    obtenerEstablecimientos: function obtenerEstablecimientos(state) {
+      return state.establecimientos;
     }
   }
 }));
