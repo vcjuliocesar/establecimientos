@@ -6,9 +6,10 @@
                 v-for="establecimiento in establecimientos"
                 v-bind:key="establecimiento.id"
                 :lat-lng="obtenerCoordenadas(establecimiento)"
+                :icon="iconoEstablecimiento(establecimiento)"
             >
                 <l-tooltip>
-                    <div>{{establecimiento.nombre}}</div>
+                    <div>{{establecimiento.nombre}} - {{establecimiento.categoria.nombre}}</div>
                 </l-tooltip>
             </l-marker>
         </l-map>
@@ -59,6 +60,14 @@ export default {
                 lat:establecimiento.lat,
                 lng:establecimiento.lng
             }
+        },
+        iconoEstablecimiento(establecimiento){
+            console.log(establecimiento);
+            const {slug} = establecimiento.categoria;
+            return L.icon({
+                iconUrl:`images/iconos/${slug}.png`,
+                iconSize:[40,50]
+            })
         }
     }
 };

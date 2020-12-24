@@ -2152,6 +2152,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2197,6 +2198,14 @@ __webpack_require__.r(__webpack_exports__);
         lat: establecimiento.lat,
         lng: establecimiento.lng
       };
+    },
+    iconoEstablecimiento: function iconoEstablecimiento(establecimiento) {
+      console.log(establecimiento);
+      var slug = establecimiento.categoria.slug;
+      return L.icon({
+        iconUrl: "images/iconos/".concat(slug, ".png"),
+        iconSize: [40, 50]
+      });
     }
   }
 });
@@ -53767,11 +53776,20 @@ var render = function() {
               "l-marker",
               {
                 key: establecimiento.id,
-                attrs: { "lat-lng": _vm.obtenerCoordenadas(establecimiento) }
+                attrs: {
+                  "lat-lng": _vm.obtenerCoordenadas(establecimiento),
+                  icon: _vm.iconoEstablecimiento(establecimiento)
+                }
               },
               [
                 _c("l-tooltip", [
-                  _c("div", [_vm._v(_vm._s(establecimiento.nombre))])
+                  _c("div", [
+                    _vm._v(
+                      _vm._s(establecimiento.nombre) +
+                        " - " +
+                        _vm._s(establecimiento.categoria.nombre)
+                    )
+                  ])
                 ])
               ],
               1
