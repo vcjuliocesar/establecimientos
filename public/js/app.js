@@ -2215,6 +2215,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2266,6 +2267,14 @@ __webpack_require__.r(__webpack_exports__);
       return L.icon({
         iconUrl: "images/iconos/".concat(slug, ".png"),
         iconSize: [40, 50]
+      });
+    },
+    redireccionar: function redireccionar(id) {
+      this.$router.push({
+        name: 'establecimiento',
+        params: {
+          id: id
+        }
       });
     }
   },
@@ -53962,6 +53971,11 @@ var render = function() {
                 attrs: {
                   "lat-lng": _vm.obtenerCoordenadas(establecimiento),
                   icon: _vm.iconoEstablecimiento(establecimiento)
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.redireccionar(establecimiento.id)
+                  }
                 }
               },
               [
