@@ -6,6 +6,7 @@
         <a v-for="categoria in categorias"
            v-bind:key="categoria.id"
            class="m-0"
+           @click="seleccionarCategoria(categoria)"
         >
         {{categoria.nombre}}
         </a>
@@ -22,6 +23,11 @@ export default {
     computed: {
         categorias() {
             return this.$store.getters.obtenerCategorias;
+        }
+    },
+    methods:{
+        seleccionarCategoria(catgeoria){
+            this.$store.commit('SELECCIONAR_CATEGORIA',categoria.slug);
         }
     }
 };

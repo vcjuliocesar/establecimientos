@@ -2151,6 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     var _this = this;
@@ -2162,6 +2163,11 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     categorias: function categorias() {
       return this.$store.getters.obtenerCategorias;
+    }
+  },
+  methods: {
+    seleccionarCategoria: function seleccionarCategoria(catgeoria) {
+      this.$store.commit('SELECCIONAR_CATEGORIA', categoria.slug);
     }
   }
 });
@@ -53859,9 +53865,19 @@ var render = function() {
         staticClass: "d-flex flex-colum flex-md-row justify-content-md-center"
       },
       _vm._l(_vm.categorias, function(categoria) {
-        return _c("a", { key: categoria.id, staticClass: "m-0" }, [
-          _vm._v("\n    " + _vm._s(categoria.nombre) + "\n    ")
-        ])
+        return _c(
+          "a",
+          {
+            key: categoria.id,
+            staticClass: "m-0",
+            on: {
+              click: function($event) {
+                return _vm.seleccionarCategoria(categoria)
+              }
+            }
+          },
+          [_vm._v("\n    " + _vm._s(categoria.nombre) + "\n    ")]
+        )
       }),
       0
     )
@@ -84265,7 +84281,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     hoteles: [],
     establecimiento: {},
     establecimientos: [],
-    categorias: []
+    categorias: [],
+    categoria: ''
   },
   mutations: {
     AGREGAR_CAFES: function AGREGAR_CAFES(state, cafes) {
@@ -84285,6 +84302,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     AGREGAR_CATEGORIAS: function AGREGAR_CATEGORIAS(state, categorias) {
       state.categorias = categorias;
+    },
+    SELECCIONAR_CATEGORIA: function SELECCIONAR_CATEGORIA(state, categoria) {
+      state.categoria = categoria;
     }
   },
   getters: {
@@ -84299,6 +84319,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     obtenerCategorias: function obtenerCategorias(state) {
       return state.categorias;
+    },
+    obtenerCategoria: function obtenerCategoria(state) {
+      return state.categoria;
     }
   }
 }));

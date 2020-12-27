@@ -10,7 +10,8 @@ export default new Vuex.Store({
         hoteles:[],
         establecimiento:{},
         establecimientos:[],
-        categorias:[]
+        categorias:[],
+        categoria:''
     },
     mutations:{
         AGREGAR_CAFES(state,cafes){
@@ -30,6 +31,9 @@ export default new Vuex.Store({
         },
         AGREGAR_CATEGORIAS(state,categorias){
             state.categorias = categorias;
+        },
+        SELECCIONAR_CATEGORIA(state,categoria){
+            state.categoria = categoria;
         }
     },
     getters:{
@@ -39,11 +43,14 @@ export default new Vuex.Store({
         obtenerImagenes:state => {
             return state.establecimiento.imagenes;
         },
-        obtenerEstablecimientos:state=>{
+        obtenerEstablecimientos:state => {
             return state.establecimientos;
         },
-        obtenerCategorias:state =>{
+        obtenerCategorias:state => {
             return state.categorias;
+        },
+        obtenerCategoria:state => {
+            return state.categoria;
         }
     }
 });
