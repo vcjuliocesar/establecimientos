@@ -2166,8 +2166,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    seleccionarCategoria: function seleccionarCategoria(catgeoria) {
-      this.$store.commit('SELECCIONAR_CATEGORIA', categoria.slug);
+    seleccionarCategoria: function seleccionarCategoria(categoria) {
+      this.$store.commit("SELECCIONAR_CATEGORIA", categoria.slug);
     }
   }
 });
@@ -2186,6 +2186,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
+//
+//
+//
 //
 //
 //
@@ -2231,10 +2234,10 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('/api/establecimientos').then(function (respuesta) {
+    axios.get("/api/establecimientos").then(function (respuesta) {
       console.log(respuesta.data);
 
-      _this.$store.commit('AGREGAR_ESTABLECIMIENTOS', respuesta.data);
+      _this.$store.commit("AGREGAR_ESTABLECIMIENTOS", respuesta.data);
     });
   },
   computed: {
@@ -2250,11 +2253,20 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     iconoEstablecimiento: function iconoEstablecimiento(establecimiento) {
-      console.log(establecimiento);
       var slug = establecimiento.categoria.slug;
       return L.icon({
         iconUrl: "images/iconos/".concat(slug, ".png"),
         iconSize: [40, 50]
+      });
+    }
+  },
+  watch: {
+    "$store.state.categoria": function $storeStateCategoria() {
+      var _this2 = this;
+
+      console.log(this.$store.getters.obtenerCategoria);
+      axios.get("/api/" + this.$store.getters.obtenerCategoria).then(function (respuesta) {
+        _this2.$store.commit("AGREGAR_ESTABLECIMIENTOS", respuesta.data);
       });
     }
   }
@@ -6912,7 +6924,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.mapa[data-v-3020d97d]{\n    height: 600px;\n    width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.mapa[data-v-3020d97d] {\n    height: 600px;\n    width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -53933,9 +53945,11 @@ var render = function() {
                 _c("l-tooltip", [
                   _c("div", [
                     _vm._v(
-                      _vm._s(establecimiento.nombre) +
-                        " - " +
-                        _vm._s(establecimiento.categoria.nombre)
+                      "\n                    " +
+                        _vm._s(establecimiento.nombre) +
+                        " -\n                    " +
+                        _vm._s(establecimiento.categoria.nombre) +
+                        "\n                "
                     )
                   ])
                 ])

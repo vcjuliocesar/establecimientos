@@ -26,8 +26,8 @@ export default {
         }
     },
     methods:{
-        seleccionarCategoria(catgeoria){
-            this.$store.commit('SELECCIONAR_CATEGORIA',categoria.slug);
+        seleccionarCategoria(categoria){
+            this.$store.commit("SELECCIONAR_CATEGORIA",categoria.slug);
         }
     }
 };
