@@ -2168,6 +2168,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     seleccionarCategoria: function seleccionarCategoria(categoria) {
       this.$store.commit("SELECCIONAR_CATEGORIA", categoria.slug);
+    },
+    seleccionarTodos: function seleccionarTodos() {
+      var _this2 = this;
+
+      axios.get("/api/establecimientos").then(function (respuesta) {
+        console.log(respuesta.data);
+
+        _this2.$store.commit("AGREGAR_ESTABLECIMIENTOS", respuesta.data);
+      });
     }
   }
 });
@@ -6905,7 +6914,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ndiv[data-v-39e6c9b3] {\n  background-color: #6272d4;\n}\nnav a[data-v-39e6c9b3] {\n  color: white;\n  font-weight: bold;\n  text-transform: uppercase;\n  padding: 0.5rem 2rem;\n  text-align: center;\n  flex: 1;\n}\nnav a[data-v-39e6c9b3]:hover {\n  color: white;\n  cursor: pointer;\n}\nnav a[data-v-39e6c9b3]:nth-child(1) {\n  background-color: #a000b7;\n}\nnav a[data-v-39e6c9b3]:nth-child(2) {\n  background-color: #591d03;\n}\nnav a[data-v-39e6c9b3]:nth-child(3) {\n  background-color: #ea6a00;\n}\nnav a[data-v-39e6c9b3]:nth-child(4) {\n  background-color: #edb220;\n}\nnav a[data-v-39e6c9b3]:nth-child(5) {\n  background-color: #dd0e3f;\n}\nnav a[data-v-39e6c9b3]:nth-child(6) {\n  background-color: #0448b5;\n}\nnav a[data-v-39e6c9b3]:nth-child(7) {\n  background-color: #00a81c;\n}\n", ""]);
+exports.push([module.i, "\ndiv[data-v-39e6c9b3] {\n    background-color: #6272d4;\n}\nnav a[data-v-39e6c9b3] {\n    color: white;\n    font-weight: bold;\n    text-transform: uppercase;\n    padding: 0.5rem 2rem;\n    text-align: center;\n    flex: 1;\n}\nnav a[data-v-39e6c9b3]:hover {\n    color: white;\n    cursor: pointer;\n}\nnav a[data-v-39e6c9b3]:nth-child(1) {\n    background-color: #a8004b;\n}\nnav a[data-v-39e6c9b3]:nth-child(2) {\n    background-color: #a000b7;\n}\nnav a[data-v-39e6c9b3]:nth-child(3) {\n    background-color: #591d03;\n}\nnav a[data-v-39e6c9b3]:nth-child(4) {\n    background-color: #ea6a00;\n}\nnav a[data-v-39e6c9b3]:nth-child(5) {\n    background-color: #edb220;\n}\nnav a[data-v-39e6c9b3]:nth-child(6) {\n    background-color: #dd0e3f;\n}\nnav a[data-v-39e6c9b3]:nth-child(7) {\n    background-color: #0448b5;\n}\nnav a[data-v-39e6c9b3]:nth-child(8) {\n    background-color: #00a81c;\n}\n", ""]);
 
 // exports
 
@@ -53876,22 +53885,36 @@ var render = function() {
       {
         staticClass: "d-flex flex-colum flex-md-row justify-content-md-center"
       },
-      _vm._l(_vm.categorias, function(categoria) {
-        return _c(
+      [
+        _c(
           "a",
           {
-            key: categoria.id,
-            staticClass: "m-0",
             on: {
               click: function($event) {
-                return _vm.seleccionarCategoria(categoria)
+                return _vm.seleccionarTodos()
               }
             }
           },
-          [_vm._v("\n    " + _vm._s(categoria.nombre) + "\n    ")]
-        )
-      }),
-      0
+          [_vm._v("Todos")]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.categorias, function(categoria) {
+          return _c(
+            "a",
+            {
+              key: categoria.id,
+              staticClass: "m-0",
+              on: {
+                click: function($event) {
+                  return _vm.seleccionarCategoria(categoria)
+                }
+              }
+            },
+            [_vm._v("\n            " + _vm._s(categoria.nombre) + "\n        ")]
+          )
+        })
+      ],
+      2
     )
   ])
 }
