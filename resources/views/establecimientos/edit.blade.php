@@ -38,7 +38,7 @@ crossorigin=""/>
                             class="form-control @error('nombre') is-invalid @enderror "
                             placeholder="Nombre Establecimiento"
                             name="nombre"
-                            value="{{ old('nombre') }}"
+                            value="{{ $establecimiento->nombre }}"
                         >
 
                         @error('nombre')
@@ -61,7 +61,7 @@ crossorigin=""/>
                             @foreach ($categorias as $categoria)
                                 <option
                                     value="{{$categoria->id}}"
-                                    {{ old('categoria_id') == $categoria->id  ? 'selected' : '' }}
+                                    {{ $establecimiento->categoria_id == $categoria->id  ? 'selected' : '' }}
                                 >{{$categoria->nombre}}</option>
 
                             @endforeach
@@ -88,6 +88,7 @@ crossorigin=""/>
                                 {{$message}}
                             </div>
                         @enderror
+                        <img style="width: 200px; margin-top:20px" src="/storage/{{$establecimiento->imagen_principal}}"/>
                     </div>
 
                 </fieldset>
@@ -119,7 +120,7 @@ crossorigin=""/>
                             name="direccion"
                             class="form-control @error('direccion') is-invalid @enderror"
                             placeholder="Dirección"
-                            value="{{old('direccion')}}"
+                            value="{{$establecimiento->direccion}}"
                         >
                         @error('direccion')
                             <div class="invalid-feedback">
@@ -135,7 +136,7 @@ crossorigin=""/>
                             name="colonia"
                             class="form-control @error('colonia') is-invalid @enderror"
                             placeholder="Colonia"
-                            value="{{old('colonia')}}"
+                            value="{{$establecimiento->colonia}}"
                         >
                         @error('colonia')
                             <div class="invalid-feedback">
@@ -143,8 +144,8 @@ crossorigin=""/>
                             </div>
                         @enderror
                     </div>
-                    <input type="hidden" id="lat" name="lat" value="{{old('lat')}}">
-                    <input type="hidden" id="lng" name="lng" value="{{old('lng')}}">
+                    <input type="hidden" id="lat" name="lat" value="{{$establecimiento->lat}}">
+                    <input type="hidden" id="lng" name="lng" value="{{$establecimiento->lng}}">
                 </fieldset>
                 <fieldset class="border p-4 mt-5">
                     <legend  class="text-primary">Información Establecimiento: </legend>
@@ -156,7 +157,7 @@ crossorigin=""/>
                                 id="telefono"
                                 placeholder="Teléfono Establecimiento"
                                 name="telefono"
-                                value="{{ old('telefono') }}"
+                                value="{{ $establecimiento->telefono }}"
                             >
 
                                 @error('telefono')
@@ -173,7 +174,7 @@ crossorigin=""/>
                             <textarea
                                 class="form-control  @error('descripcion')  is-invalid  @enderror"
                                 name="descripcion"
-                            >{{ old('descripcion') }}</textarea>
+                            >{{ $establecimiento->descripcion }}</textarea>
 
                                 @error('descripcion')
                                     <div class="invalid-feedback">
@@ -189,7 +190,7 @@ crossorigin=""/>
                                 class="form-control @error('apertura')  is-invalid  @enderror"
                                 id="apertura"
                                 name="apertura"
-                                value="{{ old('apertura') }}"
+                                value="{{ $establecimiento->apertura }}"
                             >
                             @error('apertura')
                                 <div class="invalid-feedback">
@@ -205,7 +206,7 @@ crossorigin=""/>
                                 class="form-control @error('cierre')  is-invalid  @enderror"
                                 id="cierre"
                                 name="cierre"
-                                value="{{ old('cierre') }}"
+                                value="{{ $establecimiento->cierre }}"
                             >
                             @error('cierre')
                                 <div class="invalid-feedback">
