@@ -94,7 +94,13 @@ class EstablecimientoController extends Controller
      */
     public function edit(Establecimiento $establecimiento)
     {
-        return "desde edit";
+        //Consuktar las categorias
+        $categorias=Categoria::all();
+
+        //obtener el establecimiento
+        $establecimiento = auth()->user()->establecimiento;
+
+        return view('establecimientos.edit',compact('categorias','establecimiento'));
     }
 
     /**
