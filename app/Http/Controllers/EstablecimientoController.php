@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use App\Establecimiento;
+use App\Imagen;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -102,7 +103,11 @@ class EstablecimientoController extends Controller
         $establecimiento->apertura = date('H:i',strtotime($establecimiento->apertura));
         $establecimiento->cierre = date('H:i',strtotime($establecimiento->cierre));
 
-        return view('establecimientos.edit',compact('categorias','establecimiento'));
+        //Obtiene las imagenes del establecimiento
+
+        $imagenes = Imagen::where('id_establecimiento',$establecimiento->uuid)->get();
+
+        return view('establecimientos.edit',compact('categorias','establecimiento','imagenes'));
     }
 
     /**

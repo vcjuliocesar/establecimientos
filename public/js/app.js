@@ -84372,6 +84372,26 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
       },
+      init: function init() {
+        var _this = this;
+
+        var galeria = document.querySelectorAll('.galeria');
+
+        if (galeria.length > 0) {
+          galeria.forEach(function (imagen) {
+            var imagenPublicada = {};
+            imagenPublicada.size = 1;
+            imagenPublicada.name = imagen.value;
+
+            _this.options.addedfile.call(_this, imagenPublicada);
+
+            _this.options.thumbnail.call(_this, imagenPublicada, "/storage/".concat(imagenPublicada.name));
+
+            imagenPublicada.previewElement.classList.add('dz-success');
+            imagenPublicada.previewElement.classList.add('dz-complete');
+          });
+        }
+      },
       success: function success(file, respuesta) {
         console.log(respuesta);
         file.nombreServidor = respuesta.archivo;
