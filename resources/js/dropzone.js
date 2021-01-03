@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             removedfile:function(file,respuesta){
                 const params = {
-                    imagen:file.nombreServidor
+                    imagen:file.nombreServidor,
+                    uuid:document.querySelector('#uuid').value
                 };
                 axios.post('/imagenes/destroy',params)
                      .then(respuesta => {

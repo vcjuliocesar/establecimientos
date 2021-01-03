@@ -84402,7 +84402,8 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       removedfile: function removedfile(file, respuesta) {
         var params = {
-          imagen: file.nombreServidor
+          imagen: file.nombreServidor,
+          uuid: document.querySelector('#uuid').value
         };
         axios.post('/imagenes/destroy', params).then(function (respuesta) {
           console.log(respuesta); //Eliminar del DOM
