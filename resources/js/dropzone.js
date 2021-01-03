@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         const imagenPublicada = {};
                         imagenPublicada.size = 1;
                         imagenPublicada.name = imagen.value;
+                        imagenPublicada.nombreServidor = imagen.value;
 
                         this.options.addedfile.call(this,imagenPublicada);
                         this.options.thumbnail.call(this,imagenPublicada,`/storage/${imagenPublicada.name}`);

@@ -227,7 +227,7 @@ crossorigin=""/>
                             @endforeach
                         @endif
                 </fieldset>
-                <input type="hidden" id="uuid" name="uuid" value="{{ Str::uuid()->toString()}}">
+                <input type="hidden" id="uuid" name="uuid" value="{{ $establecimiento->uuid}}">
                 <input type="submit" class="btn btn-primary mt-3 d-block" value="Registrar Establecimiento">
             </form>
         </div>

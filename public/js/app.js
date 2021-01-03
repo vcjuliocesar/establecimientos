@@ -84382,6 +84382,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var imagenPublicada = {};
             imagenPublicada.size = 1;
             imagenPublicada.name = imagen.value;
+            imagenPublicada.nombreServidor = imagen.value;
 
             _this.options.addedfile.call(_this, imagenPublicada);
 
