@@ -228,7 +228,7 @@ crossorigin=""/>
                         @endif
                 </fieldset>
                 <input type="hidden" id="uuid" name="uuid" value="{{ $establecimiento->uuid}}">
-                <input type="submit" class="btn btn-primary mt-3 d-block" value="Registrar Establecimiento">
+                <input type="submit" class="btn btn-primary mt-3 d-block" value="Guardar Cambios">
             </form>
         </div>
     </div>
